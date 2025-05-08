@@ -9,6 +9,12 @@ body{
 
 #button{
     background: greenyellow;
-    padding: 5px;
+    padding: 8px;
+    border: 0;
 }
 
+input{
+    padding: 7px;
+    border: 0;
+    border-radius: 10px;
+}
