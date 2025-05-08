@@ -1,0 +1,14 @@
+body{
+    background-color: #51515b;
+    justify-items: center;
+}
+
+#h{
+    color: #fff;
+}
+
+#button{
+    background: greenyellow;
+    padding: 5px;
+}
+
