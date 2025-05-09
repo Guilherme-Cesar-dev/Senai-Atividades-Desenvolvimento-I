@@ -52,7 +52,20 @@ app.post("/tasks", (req, res) => {
 });
 
 app.put("tasks/:id", (req, res) => {
-    const task = readTasks();
+    const tasks = readTasks();
     const taskIndex = tasks.findIndex(t => t.id == req.params.id)
     if(taskIndex === -1) return res.status(404).json({message:"Task not found"});
+    tasks[taskIndex] = { ...tasks[taskIndex], ...req.body};
+    writeTasks(tasks);
+    res.json(tasks[taskIndex]);
 });
+
+app.delete("tasks/:id", (req, res) => {
+    let tasks = fs.readTasks();
+
+    tasks = tasks.filter(t.id != req.params.id);
+    writeTasks(tasks);
+    res.status(204).send();
+});
+
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
