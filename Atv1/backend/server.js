@@ -51,19 +51,24 @@ app.post("/tasks", (req, res) => {
     res.status(201).json(newTask);
 });
 
-app.put("tasks/:id", (req, res) => {
+app.put("/tasks/:id", (req, res) => {
     const tasks = readTasks();
     const taskIndex = tasks.findIndex(t => t.id == req.params.id)
+
+    console.log("IDs existentes:", tasks.map(t => t.id));
+    console.log("Recebido: ", req.body);
+    console.log("PUT /tasks/:id chamado para id:", req.params.id);
+    console.log("Body recebido:", req.body);
+
     if(taskIndex === -1) return res.status(404).json({message:"Task not found"});
     tasks[taskIndex] = { ...tasks[taskIndex], ...req.body};
     writeTasks(tasks);
     res.json(tasks[taskIndex]);
 });
 
-app.delete("tasks/:id", (req, res) => {
-    let tasks = fs.readTasks();
-
-    tasks = tasks.filter(t.id != req.params.id);
+app.delete("/tasks/:id", (req, res) => {
+    let tasks = readTasks();
+    tasks = tasks.filter(t => t.id != req.params.id);
     writeTasks(tasks);
     res.status(204).send();
 });

@@ -5,13 +5,13 @@ const taskList = document.getElementById("task-list");
 form.addEventListener("submit", async(e) => {
     
     e.preventDefault();
-    const title = document.getElementById("title").value
-    const description = document.getElementById("description").value
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
 
     try {
         const res = await fetch(apiUrl, {
             method: "POST",
-            headers: {"Content-Type":"application/json"},
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({title,description}),
         });
 
@@ -19,13 +19,13 @@ form.addEventListener("submit", async(e) => {
     
         const task = await res.json();
         form.reset();
-        addTaskToUl(task);
+        addTaskToUI(task);
     } catch(err) {
         alert("Erro ao salvar tarefa: " + err.message);
     }
 });
 
-function addTaskToUl(task){
+function addTaskToUI(task){
     
     const li = document.createElement("li");
     li.className = task.completed ? "completed" : "";
@@ -33,11 +33,10 @@ function addTaskToUl(task){
     li.innerHTML = `
         <span>${task.title} - ${task.description}</span>
         <div>
-            <button onClick="toggleComplete(${task.id}, ${task.completed})">✔️</button>
-            <button onClick="deleteTask(${task.id})">🗑️</button>
+            <button onclick="toggleComplete(${task.id}, ${task.completed})">✔️</button>
+            <button onclick="deleteTask(${task.id})">🗑️</button>
         </div>
     `;
-
     taskList.appendChild(li);
 };
 
@@ -49,19 +48,19 @@ async function loadTasks(){
     
         const tasks = await res.json();
         taskList.innerHTML = "";
-        tasks.forEach(addTaskToUl);
+        tasks.forEach(addTaskToUI);
     } catch (err) {
         alert("Erro ao carregar tarefas: " + err.message);
     };
 };
 
-async function toggleComplete(id, completed){
-    
+async function toggleComplete(id, completed) {
+
     try {
         await fetch(`${apiUrl}/${id}`, {
             method: "PUT",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({completed: !completed})
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ completed: !completed })
         });
         loadTasks();
     } catch(err) {
@@ -71,10 +70,8 @@ async function toggleComplete(id, completed){
 
 async function deleteTask(id){
     
-    try{
-        await fetch(`${apiUrl}/${id}`, {
-            method: "DELETE"
-        });
+    try {
+        await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
         loadTasks();
     } catch(err) {
         alert("Erro ao excluir tarefa: " + err.message);
