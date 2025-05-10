@@ -35,12 +35,13 @@ function addTaskToUl(task){
         <div>
             <button onClick="toggleComplete(${task.id}, ${task.completed})">✔️</button>
             <button onClick="deleteTask(${task.id})">🗑️</button>
+        </div>
     `;
 
     taskList.appendChild(li);
 };
 
-async function loadTask(){
+async function loadTasks(){
     
     try {
         const res = await fetch(apiUrl);
@@ -54,7 +55,7 @@ async function loadTask(){
     };
 };
 
-async function toggleCompleted(id, completed){
+async function toggleComplete(id, completed){
     
     try {
         await fetch(`${apiUrl}/${id}`, {
@@ -62,7 +63,7 @@ async function toggleCompleted(id, completed){
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({completed: !completed})
         });
-        loadTask();
+        loadTasks();
     } catch(err) {
         alert("Erro ao atualizar tarefa: " + err.message);
     };
@@ -74,10 +75,10 @@ async function deleteTask(id){
         await fetch(`${apiUrl}/${id}`, {
             method: "DELETE"
         });
-        loadTask();
+        loadTasks();
     } catch(err) {
         alert("Erro ao excluir tarefa: " + err.message);
     };
 };
 
-loadTask();
+loadTasks();
