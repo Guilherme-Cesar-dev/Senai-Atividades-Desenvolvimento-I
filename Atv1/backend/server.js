@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); 
 const fs = require("fs");
 const cors = require("cors");
 
@@ -33,7 +33,7 @@ app.get("/tasks", (req, res) => {
 
 app.get("/tasks/:id", (req, res) => {
     const tasks = readTasks();
-    const task = tasks.find(t => t.id == req.params.id);
+    const task = tasks.find((t) => t.id == req.params.id);
     task ? res.json(task) : res.status(404).json({ message: "Task not found"});
 });
 
@@ -53,12 +53,7 @@ app.post("/tasks", (req, res) => {
 
 app.put("/tasks/:id", (req, res) => {
     const tasks = readTasks();
-    const taskIndex = tasks.findIndex(t => t.id == req.params.id)
-
-    console.log("IDs existentes:", tasks.map(t => t.id));
-    console.log("Recebido: ", req.body);
-    console.log("PUT /tasks/:id chamado para id:", req.params.id);
-    console.log("Body recebido:", req.body);
+    const taskIndex = tasks.findIndex((t) => t.id == req.params.id);
 
     if(taskIndex === -1) return res.status(404).json({message:"Task not found"});
     tasks[taskIndex] = { ...tasks[taskIndex], ...req.body};
@@ -68,7 +63,7 @@ app.put("/tasks/:id", (req, res) => {
 
 app.delete("/tasks/:id", (req, res) => {
     let tasks = readTasks();
-    tasks = tasks.filter(t => t.id != req.params.id);
+    tasks = tasks.filter((t) => t.id != req.params.id);
     writeTasks(tasks);
     res.status(204).send();
 });

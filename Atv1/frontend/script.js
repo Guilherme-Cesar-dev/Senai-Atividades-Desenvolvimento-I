@@ -44,7 +44,7 @@ async function loadTasks(){
     
     try {
         const res = await fetch(apiUrl);
-        if(!res.ok) throw new Error("Erro ao carrefar tarefas");
+        if(!res.ok) throw new Error("Erro ao carregar tarefas");
     
         const tasks = await res.json();
         taskList.innerHTML = "";
