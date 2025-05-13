@@ -1,6 +1,5 @@
 baixar o node.js
-package.json: npm init -y, dentro de backend
-node_modules e pack-lock: npm install express cors, dentro de backend
-
+            npm init -y: package.json , dentro de backend
+            npm install express cors: node_modules e pack-lock , dentro de backend
             npm install
             node server.js: pra rodar o server 
