@@ -1,1 +1,0 @@
-Profesor: Leandro num sei kkk, gosta de um ponto e virgula viu ;;;
